@@ -1,0 +1,14 @@
+{
+    "actions": {
+        "acqdatetime": {
+            "filters": {}, 
+            "params": {}
+        }
+    }, 
+    "comments": {
+        "author": "Arnold Schilham, UMCU", 
+        "creator": "generate_config_json.py version 20180219", 
+        "description": "MR/fBIRN_ReceiveField for Philips (module not yet implemented)", 
+        "version": "20170320"
+    }
+}

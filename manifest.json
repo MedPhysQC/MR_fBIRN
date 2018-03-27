@@ -1,0 +1,19 @@
+{
+    "info": {
+        "dbversion": "20180209",
+        "magic": "wad-qc-factory"
+    },
+    "module": {
+        "description": "MR fBIRN",
+        "executable": "fbirn_wadwrapper.py",
+        "name": "MR_fBIRN",
+        "code": "python",
+        "dependencies": [
+            "numpy",
+            "pydicom",
+            "scipy",
+            "scikit-image",
+            "matplotlib"
+        ]
+    }
+}

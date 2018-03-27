@@ -1,0 +1,27 @@
+{
+    "actions": {
+        "B0_series": {
+            "filters": {}, 
+            "params": {
+                "circleradiusfactor": 0.85
+            }
+        }, 
+        "acqdatetime": {
+            "filters": {}, 
+            "params": {}
+        }, 
+        "header_series": {
+            "filters": {}, 
+            "params": {}
+        }
+    }, 
+    "comments": {
+        "author": "Arnold Schilham, UMCU", 
+        "creator": "generate_config_json.py version 20180219", 
+        "description": "MR/fBIRN_B0map for Philips", 
+        "params": {
+            "circleradiusfactor": "factor to adjust circle radius to stay within phantom"
+        }, 
+        "version": "20161026"
+    }
+}

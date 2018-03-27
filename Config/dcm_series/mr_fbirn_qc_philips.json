@@ -1,0 +1,22 @@
+{
+    "actions": {
+        "acqdatetime": {
+            "filters": {}, 
+            "params": {}
+        }, 
+        "header_series": {
+            "filters": {}, 
+            "params": {}
+        }, 
+        "qc_series": {
+            "filters": {}, 
+            "params": {}
+        }
+    }, 
+    "comments": {
+        "author": "Arnold Schilham, UMCU", 
+        "creator": "generate_config_json.py version 20180219", 
+        "description": "MR/fBIRN_QC for Philips", 
+        "version": "20161026"
+    }
+}

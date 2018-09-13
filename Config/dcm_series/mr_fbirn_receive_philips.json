@@ -5,10 +5,16 @@
             "params": {}
         }
     }, 
+    "cfgformat": "20180910", 
     "comments": {
         "author": "Arnold Schilham, UMCU", 
-        "creator": "generate_config_json.py version 20180219", 
+        "creator": "generate_config_json.py version 20180912", 
         "description": "MR/fBIRN_ReceiveField for Philips (module not yet implemented)", 
         "version": "20170320"
+    }, 
+    "info": {
+        "acqdatetime": {
+            "params": {}
+        }
     }
 }

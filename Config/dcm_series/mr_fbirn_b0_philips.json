@@ -15,13 +15,24 @@
             "params": {}
         }
     }, 
+    "cfgformat": "20180910", 
     "comments": {
         "author": "Arnold Schilham, UMCU", 
-        "creator": "generate_config_json.py version 20180219", 
+        "creator": "generate_config_json.py version 20180912", 
         "description": "MR/fBIRN_B0map for Philips", 
-        "params": {
-            "circleradiusfactor": "factor to adjust circle radius to stay within phantom"
-        }, 
         "version": "20161026"
+    }, 
+    "info": {
+        "B0_series": {
+            "params": {
+                "circleradiusfactor": "factor to adjust circle radius to stay within phantom"
+            }
+        }, 
+        "acqdatetime": {
+            "params": {}
+        }, 
+        "header_series": {
+            "params": {}
+        }
     }
 }

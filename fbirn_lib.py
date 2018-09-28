@@ -38,6 +38,7 @@ Differences between UMCU version and Philips version:
     UMCU: Analyse only max roi box, detrend once for all. Validated that additional detrending has very little effect.
 
 Changelog:
+   20180928: fixes np.ma.max and np.ma.min 
    20161220: remove class variables
    20161026: Added tests B0mapping and B1mapping
    20161025: Choices made:
@@ -49,7 +50,7 @@ Changelog:
    20161005: initial version, rewrite of BVN matlab code
 """
 
-__version__ = '20161220'
+__version__ = '20180928'
 __author__ = 'aschilham, bvnierop'
 
 try:
@@ -850,14 +851,14 @@ class fBIRN_QC:
         # Calculate mean nominal flip angle and STDEV in all nSlices ROIs
         im_mean_curve = [ np.ma.array(im, mask=~mask).mean() for im,mask in zip(images, im_circ) ] 
         im_std_curve  = [ np.ma.array(im, mask=~mask).std() for im,mask in zip(images, im_circ) ] 
-        im_min_curve  = [ np.ma.array(im, mask=~mask).min() for im,mask in zip(images, im_circ) ] 
-        im_max_curve  = [ np.ma.array(im, mask=~mask).max() for im,mask in zip(images, im_circ) ] 
+        im_min_curve  = [ np.ma.array(im, mask=~mask).compressed().min() for im,mask in zip(images, im_circ) ] 
+        im_max_curve  = [ np.ma.array(im, mask=~mask).compressed().max() for im,mask in zip(images, im_circ) ] 
 
         print('Mu:    ', im_mean_curve)
         print('Sigma: ', im_std_curve)
 
         # add overall results
-        ma = np.ma.array(images, mask=~np.array(im_circ))
+        ma = np.ma.array(images, mask=~np.array(im_circ)).compressed()
         self.results.append( ('float', 'NominalB1_mean_ppm', ma.mean()) )
         self.results.append( ('float', 'NominalB1_std_ppm', ma.std()) )
         ma_max = ma.max()
@@ -924,8 +925,8 @@ class fBIRN_QC:
         # Calculate mean nominal B0 and STDEV in all nSlices ROIs
         im_PPM        = [ im/i.ImagingFrequency for im,i in zip(imagesHz,infoHz) ] # ppm; freq in MHz
         im_mean_curve = [ np.ma.array(im, mask=~mask).mean() for im,mask in zip(im_PPM, im_circ) ] 
-        im_min_curve  = [ np.ma.array(im, mask=~mask).min() for im,mask in zip(im_PPM, im_circ) ] 
-        im_max_curve  = [ np.ma.array(im, mask=~mask).max() for im,mask in zip(im_PPM, im_circ) ] 
+        im_min_curve  = [ np.ma.array(im, mask=~mask).compressed().min() for im,mask in zip(im_PPM, im_circ) ] 
+        im_max_curve  = [ np.ma.array(im, mask=~mask).compressed().max() for im,mask in zip(im_PPM, im_circ) ] 
         im_std_curve  = [ np.ma.array(im, mask=~mask).std() for im,mask in zip(im_PPM, im_circ) ] 
         
         print('Mu:    ', im_mean_curve)
@@ -934,7 +935,7 @@ class fBIRN_QC:
         print('Max:   ', im_max_curve)
 
         # add overall results
-        ma = np.ma.array(im_PPM, mask=~np.array(im_circ))
+        ma = np.ma.array(im_PPM, mask=~np.array(im_circ)).compressed()
         self.results.append( ('float', 'NominalB0_mean_ppm', ma.mean()) )
         self.results.append( ('float', 'NominalB0_std_ppm', ma.std()) )
         self.results.append( ('float', 'NominalB0_min_ppm', ma.min()) )
@@ -1091,7 +1092,7 @@ class fBIRN_QC:
         # all dimensionless parameters from which we will have to learn what their
         # future value might be
         mask_Receive = im_Receive>0
-        ma_Receive = np.ma.array(im_Receive, mask=~mask_Receive)
+        ma_Receive = np.ma.array(im_Receive, mask=~mask_Receive).compressed()
         receive_mean = ma_Receive.mean()
         receive_std  = ma_Receive.std()
         receive_min  = ma_Receive.min()

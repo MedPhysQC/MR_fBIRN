@@ -38,6 +38,7 @@ Differences between UMCU version and Philips version:
     UMCU: Analyse only max roi box, detrend once for all. Validated that additional detrending has very little effect.
 
 Changelog:
+   20190506: fix for pydicom 1.2.x
    20180928: fixes np.ma.max and np.ma.min 
    20161220: remove class variables
    20161026: Added tests B0mapping and B1mapping
@@ -50,7 +51,7 @@ Changelog:
    20161005: initial version, rewrite of BVN matlab code
 """
 
-__version__ = '20180928'
+__version__ = '20190506'
 __author__ = 'aschilham, bvnierop'
 
 try:
@@ -976,13 +977,13 @@ class fBIRN_QC:
         info         = cs.dcmInfile._datasets # a stack of all dicom files (headers and data)
         images       = cs.pixeldataIn         # a stack of just the dicom data
         self.verbose = cs.verbose
-
+        
         # Data contains images with the magnitude images, and the phase images. 
         # Select only phase images.
         desc = np.array([ '\\'.join(im.ImageType) for im in info ])
         keeptype = 'ORIGINAL\\PRIMARY\\M_FFE\\M\\FFE'
         images = images[ desc == keeptype ] # Magnitude images
-        info = np.array(info)[ desc == keeptype ]
+        info = [i for i,d in zip(info, desc) if d==keeptype]
 
         # split in signal and noise images
         desc = np.array([ im.TemporalPositionIdentifier for im in info ])

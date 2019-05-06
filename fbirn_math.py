@@ -197,7 +197,7 @@ def CircleImages(images, usePartofRadius, circles=None):
     for im in images:
         mask = (im>0).astype(int)
 
-        stats = regionprops(mask)[0] # ask for properties of first label (there is only one)
+        stats = regionprops(mask, coordinates='xy')[0] # ask for properties of first label (there is only one)
         cy,cx = stats.centroid # centroid of center of mass
         minaxislength = stats.minor_axis_length # smallest diam within mask
         # Define circle within phantom based on radius determine based on
